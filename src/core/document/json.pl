@@ -5222,6 +5222,9 @@ schema10('
 { "@type" : "Class",
   "@id" : "Boolean",
   "b" : "xsd:boolean" }
+{ "@type" : "Class",
+  "@id" : "String",
+  "s" : "xsd:string" }
 ').
 
 test(boolean_in_boolean_field,
@@ -5237,6 +5240,27 @@ test(boolean_in_boolean_field,
          )
      ]) :-
     Document = _{ '@type': "Boolean", b: true },
+    create_context(Desc, _{ author: "a", message: "m" }, Context),
+    with_transaction(
+        Context,
+        insert_document(Context, Document, _Id),
+        _
+    ).
+
+test(boolean_in_string_field,
+     [
+         setup(
+             (   setup_temp_store(State),
+                 create_db_with_empty_schema("admin", "foo"),
+                 resolve_absolute_string_descriptor("admin/foo", Desc),
+                 write_schema(schema10, Desc)
+             )),
+         cleanup(
+             teardown_temp_store(State)
+         ),
+         error(casting_error(false, 'http://www.w3.org/2001/XMLSchema#string'), _)
+     ]) :-
+    Document = _{ '@type': "String", s: false },
     create_context(Desc, _{ author: "a", message: "m" }, Context),
     with_transaction(
         Context,
