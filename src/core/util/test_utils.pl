@@ -221,8 +221,8 @@ repo_schema_context_from_label_descriptor(Label, Label_Descriptor, Commit_Info, 
     create_context(Transaction_Object, Commit_Info, Context).
 
 create_db_with_test_schema(Organization, Db_Name) :-
-    Prefixes = _{ '@base'  : 'http://example.com/data/world/',
-                  '@schema' : 'http://example.com/schema/worldOntology#'},
+    Prefixes = _{ '@base'  : "http://example.com/data/world/",
+                  '@schema' : "http://example.com/schema/worldOntology#"},
 
     open_descriptor(system_descriptor{}, System),
     super_user_authority(Admin),
@@ -263,22 +263,22 @@ create_db_with_ttl_schema(Organization, Db_Name, TTL_Schema) :-
     graph_update(system_descriptor{}, Auth, Graph, Commit_Info, "turtle", TTL).
 
 create_db_without_schema(Organization, Db_Name) :-
-    Prefixes = _{ '@base' : 'http://somewhere.for.now/document/',
-                  '@schema' : 'http://somewhere.for.now/schema#' },
+    Prefixes = _{ '@base' : "http://somewhere.for.now/document/",
+                  '@schema' : "http://somewhere.for.now/schema#" },
     open_descriptor(system_descriptor{}, System),
     super_user_authority(Admin),
     create_db(System, Admin, Organization, Db_Name, "test", "a test db", false, false, Prefixes).
 
 create_db_with_empty_schema(Organization, Db_Name) :-
-    Prefixes = _{ '@base' : 'http://somewhere.for.now/document/',
-                  '@schema' : 'http://somewhere.for.now/schema#' },
+    Prefixes = _{ '@base' : "http://somewhere.for.now/document/",
+                  '@schema' : "http://somewhere.for.now/schema#" },
     open_descriptor(system_descriptor{}, System),
     super_user_authority(Admin),
     create_db(System, Admin, Organization, Db_Name, "test", "a test db", true, false, Prefixes).
 
 create_public_db_without_schema(Organization, Db_Name) :-
-    Prefixes = _{ '@base' : 'http://somewhere.for.now/document/',
-                  '@schema' : 'http://somewhere.for.now/schema#' },
+    Prefixes = _{ '@base' : "http://somewhere.for.now/document/",
+                  '@schema' : "http://somewhere.for.now/schema#" },
     open_descriptor(system_descriptor{}, System),
     super_user_authority(Admin),
     create_db(System, Admin, Organization, Db_Name, "test", "a test db", false, true, Prefixes).

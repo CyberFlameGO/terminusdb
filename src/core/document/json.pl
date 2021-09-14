@@ -820,11 +820,13 @@ context_elaborate(JSON,Elaborated) :-
         (   member(Prop-Value, Prop_Values),
             idgen_hash('terminusdb://Prefix_Pair/',[json{'@value' : Prop},
                                                     json{'@value' : Value}], HashURI),
+            atom_string(Prop, Prop_String),
+            atom_string(Value, Value_String),
             Prefix_Pair = json{'@type' : 'sys:Prefix',
                                '@id' : HashURI,
-                               'sys:prefix' : json{ '@value' : Prop,
+                               'sys:prefix' : json{ '@value' : Prop_String,
                                                     '@type' : "xsd:string"},
-                               'sys:url' : json{ '@value' : Value,
+                               'sys:url' : json{ '@value' : Value_String,
                                                  '@type' : "xsd:string"}
                               }
         ),

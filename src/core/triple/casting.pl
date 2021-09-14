@@ -58,12 +58,11 @@ typecast(Val, Type, Hint, Cast) :-
  *
  * Casts from source type to target type.
  */
-%%% xsd:string Self Cast
-%%% NOTE: Should not be necessary as we shouldn't be able to have an atom in the first place
-typecast_switch('http://www.w3.org/2001/XMLSchema#string', 'http://www.w3.org/2001/XMLSchema#string', Val, _, Val_String^^'http://www.w3.org/2001/XMLSchema#string') :-
+%%% Can't cast an atom to a string
+typecast_switch('http://www.w3.org/2001/XMLSchema#string', _, Val, _, _) :-
     atom(Val),
     !,
-    atom_string(Val,Val_String).
+    throw(error(casting_error(Val, 'http://www.w3.org/2001/XMLSchema#string'), _)).
 %%% Self Cast
 typecast_switch(Type, Type, Val, _, Val^^Type) :-
     !.
